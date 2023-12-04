@@ -2,6 +2,7 @@ import express from "express";
 import compression from "compression";
 import mongoose from "mongoose";
 import multer from "multer";
+import cors from "cors";
 
 import {
 	loginValidation,
@@ -21,6 +22,7 @@ mongoose
 	});
 
 const app = express();
+app.use(cors());
 app.use(compression());
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
