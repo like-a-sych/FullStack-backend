@@ -11,7 +11,7 @@ const registerValidation = [
 	body("password", "Пароль должен быть не меньше 5 символов").isLength({
 		min: 5,
 	}),
-	body("fullName", "Укажите имя").isLength({
+	body("fullName", "В имени должно быть минимум 2 символа").isLength({
 		min: 2,
 	}),
 	body("avatarUrl", "Неверная ссылка").optional().isURL(),
@@ -27,7 +27,7 @@ const postCreateValidation = [
 			min: 10,
 		})
 		.isString(),
-	body("tags", "неверный формат тэгов (укажите массив)").optional().isString(),
+	body("tags", "неверный формат тэгов (укажите массив)").optional().isArray(),
 	body("imageUrl", "Неверная ссылка").optional().isString(),
 ];
 
