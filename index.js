@@ -63,6 +63,7 @@ server.on("error", (error) => {
 });
 
 app.get("/posts", Controller.getAll);
+app.get("/tags", Controller.getLastTags);
 app.get("/posts/:id", Controller.getOne);
 app.get("/auth/me", checkAuth, Controller.getMe);
 app.post(

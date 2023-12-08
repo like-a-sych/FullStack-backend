@@ -7,6 +7,24 @@ const getAll = async (request, response) => {
 
 		response.json(posts);
 	} catch (error) {
+		console.log(error);
+		response.status(500).json({
+			message: "Не удалось получить статьи",
+		});
+	}
+};
+
+const getLastTags = async (request, response) => {
+	try {
+		const posts = await PostModel.find().limit(5).exec();
+		const tags = posts
+			.map((post) => post.tags)
+			.flat()
+			.slice(0, 5);
+
+		response.json(tags);
+	} catch (error) {
+		console.log(error);
 		response.status(500).json({
 			message: "Не удалось получить статьи",
 		});
@@ -21,7 +39,7 @@ const getOne = async (request, response) => {
 			{ _id: postId },
 			{ $inc: { viewsCount: 1 } },
 			{ new: true }
-		);
+		).populate("user");
 
 		if (!document) {
 			return response.status(404).json({
@@ -106,4 +124,4 @@ const update = async (request, response) => {
 	}
 };
 
-export { create, getAll, getOne, remove, update };
+export { create, getAll, getOne, remove, update, getLastTags };
